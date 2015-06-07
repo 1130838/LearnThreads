@@ -13,11 +13,7 @@ public class Counter {
         value++;
     }
 
-    public synchronized void decrement(){
-        value--;
-    }
-
-    public void doWork() {
+       public void doWork() {
 
         Thread t1 = new Thread(new Runnable() {
             @Override
@@ -34,7 +30,7 @@ public class Counter {
             public void run() {
 
                 for (int i = 0; i < 10000; i++) {
-                    decrement();
+                    increment();
                 }
             }
         });
