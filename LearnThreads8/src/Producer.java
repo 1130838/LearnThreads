@@ -36,6 +36,7 @@ public class Producer {
 
             synchronized (lock1) {
                 vec.add(randomNumber);
+                lock1.notify();
             }
 
             System.out.println("[" + Thread.currentThread().getName() + "] filling Vector with " + randomNumber);
@@ -50,7 +51,7 @@ public class Producer {
         }
 
         synchronized (lock1) {
-            lock1.notify();
+           // lock1.notify();
         }
 
 

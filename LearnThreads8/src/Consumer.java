@@ -20,25 +20,26 @@ public class Consumer {
     }
 
 
-    public void showVector()  {
+    public void showVector() {
         int i = 0;
-        synchronized (lock1) {
-            try {
-                lock1.wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
 
-            do {
 
+        do {
+
+            synchronized (lock1) {
+                try {
+                    lock1.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
                 System.out.print(Colors.ANSI_BLUE);
                 System.out.println("vec [" + i + "] = " + vec.get(i));
                 System.out.print(Colors.ANSI_RESET);
-              //  System.out.println("thread consumer. vec size = " + vec.size() + " i = " + i);
-                itensConsumed++;
-                i++;
-            } while (i < vec.size());
-        }
+            }
+              System.out.println("thread consumer. vec size = " + vec.size() + " i = " + i);
+            itensConsumed++;
+            i++;
+        } while (i < vec.size());
 
         /*    synchronized (lock2) {
 
