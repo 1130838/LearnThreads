@@ -1,0 +1,17 @@
+@startuml
+Actor User
+User -> UI : begin()
+UI -> Vector : create()
+UI -> Object : create()
+UI -> Producer : create(vec, lock1)
+UI -> Consumer : create(vec, lock1)
+create t1 as T1 <<thread>>
+UI -> T1 : create()
+T1 -> Producer : fillVector(orderOfThread)
+create t2 as T2 <<thread>>
+UI -> T2 : create()
+T2 -> Producer : fillVector(orderOfThread)
+create t3 as T3 <<thread>>
+UI -> T3 : create()
+T2 -> Consumer : consume()
+@enduml
