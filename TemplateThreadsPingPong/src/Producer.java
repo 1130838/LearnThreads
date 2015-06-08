@@ -1,4 +1,4 @@
-import sun.java2d.xr.MutableInteger;
+//import sun.java2d.xr.MutableInteger;
 
 import java.util.Random;
 import java.util.Vector;
@@ -48,8 +48,9 @@ public class Producer {
                 }
             }
 
+            System.out.print(Colors.ANSI_PURPLE);
             System.out.println("[" + Thread.currentThread().getName() + "] filling Vector with " + randomNumber);
-
+            System.out.print(Colors.ANSI_RESET);
             try {
                 Thread.sleep(500);
             } catch (InterruptedException e) {

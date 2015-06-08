@@ -1,4 +1,4 @@
-import sun.java2d.xr.MutableInteger;
+//import sun.java2d.xr.MutableInteger;
 
 import java.util.Vector;
 
@@ -37,18 +37,31 @@ public class Consumer {
                 }
 
                 while (itensConsumed.getValue() != itensProduced.getValue()) {
-
+/*
                     System.out.print(Colors.ANSI_BLUE);
                     System.out.println("vec [" + itensConsumed.getValue() + "] = " + vec.get(itensConsumed.getValue()));
-                    System.out.print(Colors.ANSI_RESET);
-                    itensConsumed.setValue(itensConsumed.getValue() + 1);
+                    System.out.print(Colors.ANSI_RESET);*/
 
-                    System.out.println("thread consumer. vec size = " + vec.size() + " i = " + itensConsumed.getValue() +
+
+                    System.out.print(Colors.ANSI_BLUE);
+                    System.out.println("[" + Thread.currentThread().getName() + "] : " +
+                            " vec[" + itensConsumed.getValue() + "] = " +
+                            vec.get(itensConsumed.getValue()) +
+                            " | vec size = " + vec.size() +
                             " | itens produced = " + itensProduced.getValue() + " | itens consumed = " + itensConsumed.getValue());
 
+                    itensConsumed.increment();
+                    System.out.print(Colors.ANSI_RESET);
+
+
+                    try {
+                        Thread.sleep(300);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
 
-            } while (itensConsumed.getValue() < totalElements.getValue()*numberOfThreads.getValue());
+            } while (itensConsumed.getValue() < totalElements.getValue() * numberOfThreads.getValue());
         }
 
 
