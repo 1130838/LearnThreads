@@ -10,7 +10,6 @@ Threads concurrently doing the method
 public class Producer {
     private Vector<Integer> vec;
     Object lock1;
-    //  public int indexThread = 0;
 
     public Producer(Vector vec, Object lock1) {
         this.vec = vec;
