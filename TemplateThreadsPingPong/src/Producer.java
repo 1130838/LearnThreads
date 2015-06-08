@@ -1,3 +1,5 @@
+import sun.java2d.xr.MutableInteger;
+
 import java.util.Random;
 import java.util.Vector;
 
@@ -15,28 +17,35 @@ public class Producer {
     Vector<Integer> vec;
     Object lock1 = new Object();
     Object lock2 = new Object();
-    int itensProduced;
-    int itensConsumed;
+    MutableInteger itensProduced;
+    MutableInteger itensConsumed;
+    MutableInteger totalElements;
 
     Random random = new Random();
 
-    public Producer(Vector<Integer> vec, Object lock1, Object lock2, int itensProduced, int itensConsumed) {
+    public Producer(Vector<Integer> vec, Object lock1, Object lock2, MutableInteger itensProduced, MutableInteger itensConsumed, MutableInteger totalElements) {
         this.vec = vec;
         this.lock1 = lock1;
         this.lock2 = lock2;
         this.itensConsumed = itensConsumed;
         this.itensProduced = itensProduced;
-
+        this.totalElements = totalElements;
     }
 
     public void fillVector() {
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < totalElements.getValue(); i++) {
             int randomNumber = random.nextInt(10);
 
             synchronized (lock1) {
                 vec.add(randomNumber);
+                itensProduced.setValue(itensProduced.getValue() + 1);
                 lock1.notify();
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             System.out.println("[" + Thread.currentThread().getName() + "] filling Vector with " + randomNumber);
@@ -46,19 +55,12 @@ public class Producer {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            itensProduced++;
 
         }
 
-        synchronized (lock1) {
-           // lock1.notify();
-        }
-
-
-    }
-
-
-    public Vector<Integer> getVec() {
-        return vec;
     }
 }
+
+
+
+
